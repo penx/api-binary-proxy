@@ -4,7 +4,11 @@
   "description": "Proxy to serve binaries such as images from an API that returns JSON",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "example-api": "nodemon example-api/index.js",
+    "dev": "npm run example-api & npm run nodemon",
+    "nodemon": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +19,13 @@
   "bugs": {
     "url": "https://github.com/penx/api-binary-proxy/issues"
   },
-  "homepage": "https://github.com/penx/api-binary-proxy#readme"
+  "homepage": "https://github.com/penx/api-binary-proxy#readme",
+  "dependencies": {
+    "config": "^3.2.4",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.1"
+  }
 }
