@@ -1,18 +1,43 @@
 # API Binary Proxy
 
-Proxy to serve binaries such as images from an API that returns JSON
+Proxy to serve binaries such as images from an API that returns base64 encoded files inside a JSON structure.
 
 ## Introduction
 
 Currently a proof of concept with the plan to address performance issues and export a route that can be mounted in a parent application.
 
 
+## API
+
+`apiBinaryProxy(apiUrl, propertyNames, assumeMimeType)`
+
+Returns a route handler that can be used by Express.
+
+- `apiUrl`: The API url uses sprintf format (see below)
+- `propertyNames`: An object of the shape `{payload, extension, mime, filename}`, containing property names that are expected in the upstream API. Each property will default to the property name if not supplied (i.e. payload defaults to "payload"):
+    - `payload`: the base64 encoded file 
+    - `extension`: the file extension, this could be with or without an initial `.`
+    - `mime`: the mime type of the file if available 
+    - `filename`: the full filename if available 
+
+Where config is:
+
+```json
+{}
+```
+
 ## Usage
 
-```
+### With Express
+
+```js
+const express = require('express')
 const apiBinaryProxy = require('api-binary-proxy');
 
+const app = express();
+
 app.use('/files', apiBinaryProxy('http://localhost:3001/api/%1$s'));
+
 ```
 
 In the example above, `%1$s` will be replaced by any path after '/files' (`req.path`).

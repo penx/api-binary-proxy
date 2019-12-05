@@ -7,8 +7,9 @@ const port = config.get('exampleApiPort');
 
 const handleFileLoad = (req, res, buffer, filename) => {
     res.json({
-        mime: 'image/jpeg',
-        payload: new Buffer(buffer).toString('base64'),
+        // mime: 'image/jpeg',
+        extension: 'jpg',
+        image: new Buffer(buffer).toString('base64'),
         filename,
         metadata: {
             example: 'meta data'
