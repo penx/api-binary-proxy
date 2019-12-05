@@ -1,6 +1,6 @@
 {
   "name": "api-binary-proxy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Proxy to serve binaries such as images from an API that returns JSON",
   "main": "index.js",
   "scripts": {
