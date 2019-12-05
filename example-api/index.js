@@ -5,12 +5,11 @@ const path = require('path');
 const app = express()
 const port = config.get('exampleApiPort');
 
-const handleFileLoad = (req, res, buffer) => {
-    
+const handleFileLoad = (req, res, buffer, filename) => {
     res.json({
         mime: 'image/jpeg',
         payload: new Buffer(buffer).toString('base64'),
-        filename: 'cat1.jpg',
+        filename,
         metadata: {
             example: 'meta data'
         }
@@ -18,11 +17,16 @@ const handleFileLoad = (req, res, buffer) => {
 }
 
 const handleIncomingRequest = (req, res) => {
-    fs.readFile(path.join(__dirname, './cat1.jpg'), (err, buffer) => {
-        handleFileLoad(req, res, buffer);
+    const filename = `./cat${req.path.substring(1)}.jpg`;
+    fs.readFile(path.join(__dirname, filename), (err, buffer) => {
+        if (err) {
+            res.send(err);
+        } else {
+            handleFileLoad(req, res, buffer, filename);
+        }
     });
 }
 
-app.get('*', handleIncomingRequest)
+app.use('/api', handleIncomingRequest)
 
 app.listen(port, () => console.log(`Example API listening on port ${port}!`))
