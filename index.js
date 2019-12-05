@@ -6,7 +6,9 @@ const port = config.get('port');
 const apiUrl = config.get('apiUrl');
 
 const handleApiResponse = (req, res, apiResponse) => {
-    res.send(apiResponse.test);
+    let buffer = new Buffer(apiResponse.payload, 'base64');
+    res.type(apiResponse.mime);
+    res.send(buffer);
 }
 
 const handleIncomingRequest = (req, res) => {

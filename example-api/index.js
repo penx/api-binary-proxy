@@ -1,18 +1,26 @@
 const express = require('express')
 const config = require('config');
+const fs = require('fs');
+const path = require('path');
 const app = express()
 const port = config.get('exampleApiPort');
 
-const handleFileLoad = (req, res, file) => {
+const handleFileLoad = (req, res, buffer) => {
     
-    const response = {
-        test: 'example'
-    };
-    res.json(response);
+    res.json({
+        mime: 'image/jpeg',
+        payload: new Buffer(buffer).toString('base64'),
+        filename: 'cat1.jpg',
+        metadata: {
+            example: 'meta data'
+        }
+    });
 }
 
 const handleIncomingRequest = (req, res) => {
-    setTimeout(() => handleFileLoad(req, res, {}), 300)
+    fs.readFile(path.join(__dirname, './cat1.jpg'), (err, buffer) => {
+        handleFileLoad(req, res, buffer);
+    });
 }
 
 app.get('*', handleIncomingRequest)

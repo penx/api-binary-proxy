@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "example-api": "nodemon example-api/index.js",
+    "example-api": "nodemon --inspect --inspect-port=2001 example-api/index.js",
     "dev": "npm run example-api & npm run nodemon",
-    "nodemon": "nodemon index.js"
+    "nodemon": "nodemon --inspect --inspect-port=2000 index.js"
   },
   "repository": {
     "type": "git",
