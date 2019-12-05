@@ -30,7 +30,7 @@ const apiBinaryProxy = ({apiUrl, propertyNames = {}, assumeMimeType, forwardHead
 
         const metadata = { filename, extension, ...rest };
         if(payload) {
-            let buffer = new Buffer(payload, 'base64');
+            let buffer = new Buffer.from(payload, 'base64');
             res.type(mimeType);
             res.append('X-ApiBinaryProxy-Metadata', JSON.stringify(metadata));
             res.send(buffer);

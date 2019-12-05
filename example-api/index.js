@@ -10,7 +10,7 @@ const handleFileLoad = (req, res, buffer, filename) => {
         // mime: 'image/jpeg',
         // extension: 'jpg',
         // filename,
-        image: new Buffer(buffer).toString('base64'),
+        image: new Buffer.from(buffer).toString('base64'),
         metadata: {
             example: 'meta data'
         }
@@ -21,7 +21,7 @@ const handleIncomingRequest = (req, res) => {
     const filename = `./images/cat${req.path.substring(1)}.jpg`;
     fs.readFile(path.join(__dirname, filename), (err, buffer) => {
         if (err) {
-            res.send(err);
+            res.sendStatus(404);
         } else {
             handleFileLoad(req, res, buffer, filename);
         }

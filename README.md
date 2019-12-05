@@ -51,7 +51,6 @@ The API url uses sprintf format, for more information see [the sprintf-js readme
 
 ## TODO:
 
-- Buffer() is deprecated. Use  Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from().
 - More configuration options on API url.
 - Allow extensions such as '.jpg' to be appended to incoming api url.
 - Improve error handling, possibly allowing a callback to be passed in for logging.
