@@ -21,12 +21,12 @@
   },
   "homepage": "https://github.com/penx/api-binary-proxy#readme",
   "dependencies": {
-    "config": "^3.2.4",
-    "express": "^4.17.1",
     "node-fetch": "^2.6.0",
     "sprintf-js": "^1.1.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.1"
+    "nodemon": "^2.0.1",
+    "config": "^3.2.4",
+    "express": "^4.17.1"
   }
 }

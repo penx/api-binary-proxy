@@ -24,6 +24,7 @@ Where `%1$s` will be replaced by `req.path`.
 - More configuration options on api url
 - Allow 'payload' and 'mime' properties to be configurable
 - Allow extensions such as '.jpg' to be appended to incoming api url.
+- Improve error handling, possibly allowing a callback to be passed in for logging
 
 ## Developing
 
