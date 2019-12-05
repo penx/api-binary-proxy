@@ -17,7 +17,7 @@ const handleFileLoad = (req, res, buffer, filename) => {
 }
 
 const handleIncomingRequest = (req, res) => {
-    const filename = `./cat${req.path.substring(1)}.jpg`;
+    const filename = `./images/cat${req.path.substring(1)}.jpg`;
     fs.readFile(path.join(__dirname, filename), (err, buffer) => {
         if (err) {
             res.send(err);
