@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
+    "start": "node app.js",
     "example-api": "nodemon --inspect --inspect-port=2001 example-api/index.js",
     "dev": "npm run example-api & npm run nodemon",
-    "nodemon": "nodemon --inspect --inspect-port=2000 index.js"
+    "nodemon": "nodemon --inspect --inspect-port=2000 app.js"
   },
   "repository": {
     "type": "git",
