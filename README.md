@@ -19,8 +19,11 @@ Where `%1$s` will be replaced by `req.path`.
 
 ## TODO:
 
-- Forward headers
+- Forward all headers by default
+- Perhaps allow header forwarding configuration e.g. via middleware
 - More configuration options on api url
+- Allow 'payload' and 'mime' properties to be configurable
+- Allow extensions such as '.jpg' to be appended to incoming api url.
 
 ## Developing
 
