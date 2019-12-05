@@ -35,7 +35,7 @@ const apiBinaryProxy = ({apiUrl, propertyNames = {}, assumeMimeType, forwardHead
             res.append('X-ApiBinaryProxy-Metadata', JSON.stringify(metadata));
             res.send(buffer);
         } else {
-            res.sendStatus(500); // TODO: confirm correct http status code, 404?
+            res.status(404);
             res.json(metadata);
         }
     }
@@ -56,8 +56,23 @@ const apiBinaryProxy = ({apiUrl, propertyNames = {}, assumeMimeType, forwardHead
             fetchOptions.headers = req.headers
         }
 
-        fetch(url, fetchOptions).then(r => r.json())
-            .then(json =>  handleApiResponse(req, res, json));
+        fetch(url, fetchOptions)
+            .then(fetchResponse => {
+                if(fetchResponse.status !== 200) {
+                    res.sendStatus(fetchResponse.status);
+                    return undefined;
+                }
+                return fetchResponse.json();
+            })
+            .then(json =>  {
+                if (!json) {
+                    return;
+                }
+                return handleApiResponse(req, res, json)
+            })
+            .catch((ex) => {
+                res.sendStatus(500);
+            });
     }
 
     return handleIncomingRequest;
