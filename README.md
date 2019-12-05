@@ -9,9 +9,11 @@ Currently a proof of concept with the plan to address performance issues and exp
 
 ## API
 
-`apiBinaryProxy(apiUrl, propertyNames, assumeMimeType)`
+`apiBinaryProxy(config)`
 
 Returns a route handler that can be used by Express.
+
+Where config is of the shape `{apiUrl, propertyNames, assumeMimeType}`:
 
 - `apiUrl`: The API url uses sprintf format (see below)
 - `propertyNames`: An object of the shape `{payload, extension, mime, filename}`, containing property names that are expected in the upstream API. Each property will default to the property name if not supplied (i.e. payload defaults to "payload"):
@@ -19,12 +21,9 @@ Returns a route handler that can be used by Express.
     - `extension`: the file extension, this could be with or without an initial `.`
     - `mime`: the mime type of the file if available 
     - `filename`: the full filename if available 
-
-Where config is:
-
-```json
-{}
-```
+- `assumeMimeType`: the mime type to use if it can't be identified from the upstream API. If not set, will return 404 for unknown mime types.
+- `forwardHeaders`: Whether to forward incoming headers to the upstream API. Defaults to *false*.
+- `forwardQueryString`: Whether to forward query string to the upstream API. Defaults to *true*.
 
 ## Usage
 
@@ -52,8 +51,7 @@ The API url uses sprintf format, for more information see [the sprintf-js readme
 
 ## TODO:
 
-- Forward all query string params, with configuration option,
-- Forward all headers by default with configuration option.
+- Buffer() is deprecated. Use  Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from().
 - More configuration options on API url.
 - Allow extensions such as '.jpg' to be appended to incoming api url.
 - Improve error handling, possibly allowing a callback to be passed in for logging.

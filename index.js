@@ -3,7 +3,7 @@ const sprintf = require('sprintf-js').sprintf;
 const path = require('path');
 const mimeTypes = require('mime-types');
 
-const apiBinaryProxy = (apiUrl, propertyNames = {}, assumeMimeType) => {
+const apiBinaryProxy = ({apiUrl, propertyNames = {}, assumeMimeType, forwardHeaders = false, forwardQueryString = true}) => {
     const handleApiResponse = (req, res, 
         {
             [propertyNames.payload || "payload"]: payload,
@@ -25,8 +25,10 @@ const apiBinaryProxy = (apiUrl, propertyNames = {}, assumeMimeType) => {
         if(!mimeType) {
             // We don't know the mime type from the API response and current config says not to assume mime type so we 404
             res.sendStatus(404);
+            return;
         }
-        const metadata = { filename, extension, ...rest};
+
+        const metadata = { filename, extension, ...rest };
         if(payload) {
             let buffer = new Buffer(payload, 'base64');
             res.type(mimeType);
@@ -39,9 +41,22 @@ const apiBinaryProxy = (apiUrl, propertyNames = {}, assumeMimeType) => {
     }
     
     const handleIncomingRequest = (req, res) => {
-        const url = sprintf(apiUrl, req.path);
-        fetch(url)
-            .then(r => r.json())
+
+        const url = new URL(sprintf(apiUrl, req.path));
+        if (forwardQueryString) {
+            // Merge query string from apiUrl with req.query
+            Object.keys(req.query).forEach(key => {
+                url.searchParams.set(key, req.query[key]);
+            });
+        }
+
+        const fetchOptions = {};
+
+        if (forwardHeaders) {
+            fetchOptions.headers = req.headers
+        }
+
+        fetch(url, fetchOptions).then(r => r.json())
             .then(json =>  handleApiResponse(req, res, json));
     }
 
