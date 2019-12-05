@@ -32,3 +32,10 @@ Where `%1$s` will be replaced by `req.path`.
 npm i
 npm run dev
 ```
+
+Then browse to:
+
+- http://localhost:3000/files/1
+- http://localhost:3000/files/2
+- http://localhost:3000/files/3
+- http://localhost:3000/files/4
