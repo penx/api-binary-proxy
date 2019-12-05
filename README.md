@@ -35,7 +35,13 @@ const apiBinaryProxy = require('api-binary-proxy');
 
 const app = express();
 
-app.use('/files', apiBinaryProxy('http://localhost:3001/api/%1$s', {payload: 'image'}, 'image/jpeg'));
+app.use('/files', apiBinaryProxy({
+    apiUrl: 'http://localhost:3001/api/%1$s',
+    propertyNames: {payload: 'image'},
+    assumeMimeType: 'image/jpeg',
+    forwardHeaders: true,
+    forwardQueryString: true
+}));
 
 ```
 
