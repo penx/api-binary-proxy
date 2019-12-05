@@ -52,10 +52,9 @@ The API url uses sprintf format, for more information see [the sprintf-js readme
 
 ## TODO:
 
-- Forward all query string params
-- Forward all headers by default.
-- Perhaps allow header forwarding configuration e.g. via middleware.
-- More configuration options on api url.
+- Forward all query string params, with configuration option,
+- Forward all headers by default with configuration option.
+- More configuration options on API url.
 - Allow extensions such as '.jpg' to be appended to incoming api url.
 - Improve error handling, possibly allowing a callback to be passed in for logging.
 
