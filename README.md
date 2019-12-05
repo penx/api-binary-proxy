@@ -36,7 +36,7 @@ const apiBinaryProxy = require('api-binary-proxy');
 
 const app = express();
 
-app.use('/files', apiBinaryProxy('http://localhost:3001/api/%1$s'));
+app.use('/files', apiBinaryProxy('http://localhost:3001/api/%1$s', {payload: 'image'}, 'image/jpeg'));
 
 ```
 
@@ -52,10 +52,10 @@ The API url uses sprintf format, for more information see [the sprintf-js readme
 
 ## TODO:
 
+- Forward all query string params
 - Forward all headers by default.
 - Perhaps allow header forwarding configuration e.g. via middleware.
 - More configuration options on api url.
-- Allow 'payload' and 'mime' properties to be configurable.
 - Allow extensions such as '.jpg' to be appended to incoming api url.
 - Improve error handling, possibly allowing a callback to be passed in for logging.
 
