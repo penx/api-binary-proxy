@@ -15,16 +15,24 @@ const apiBinaryProxy = require('api-binary-proxy');
 app.use('/files', apiBinaryProxy('http://localhost:3001/api/%1$s'));
 ```
 
-Where `%1$s` will be replaced by `req.path`.
+In the example above, `%1$s` will be replaced by any path after '/files' (`req.path`).
+
+### Sprintf
+
+The API url uses sprintf format, for more information see [the sprintf-js readme](https://github.com/alexei/sprintf.js#readme). This is to enable further configuration options to be added in future and to support alternative uses such as:
+
+- http://localhost:3001/api/%1$s/binary
+- http://localhost:3001/api/binaries/%1$s?format=jpeg
+
 
 ## TODO:
 
-- Forward all headers by default
-- Perhaps allow header forwarding configuration e.g. via middleware
-- More configuration options on api url
-- Allow 'payload' and 'mime' properties to be configurable
+- Forward all headers by default.
+- Perhaps allow header forwarding configuration e.g. via middleware.
+- More configuration options on api url.
+- Allow 'payload' and 'mime' properties to be configurable.
 - Allow extensions such as '.jpg' to be appended to incoming api url.
-- Improve error handling, possibly allowing a callback to be passed in for logging
+- Improve error handling, possibly allowing a callback to be passed in for logging.
 
 ## Developing
 
