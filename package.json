@@ -22,7 +22,7 @@
   "homepage": "https://github.com/penx/api-binary-proxy#readme",
   "dependencies": {
     "mime-types": "^2.1.25",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.1.1",
     "sprintf-js": "^1.1.2"
   },
   "devDependencies": {
